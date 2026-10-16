@@ -1,0 +1,45 @@
+What could be a feature for predicting the estimation time:
+- customer
+	-customer_zip_code_prefix
+	- customer_city
+	- customer_state
+
+- geolocation
+	- geolocation_zip_code_prefix
+	- geolocation_city
+	- geolocation_state
+	- geolocation_lat
+	- geolocation_lng	
+	
+- order_items
+	- price
+- orders
+	- order_delivered_customer_date
+	- order_delivered_carrier_dat
+- products
+	- product_weight_g
+	- product_length_cm
+	- product_height_cm
+	- product_width_cm
+- seller
+	- seller_zip_code_prefix
+	- seller_city
+	- seller_state
+- product_category
+	- product_category_name
+
+
+features that i would like to put in the model:
+	Number of items.
+		-
+	product category.
+		-
+	Order value
+		-
+	the number of sellers
+		-
+	the Distance between the seller and customer
+		
+	if it is in the same city or not
+
+
