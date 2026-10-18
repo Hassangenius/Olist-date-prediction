@@ -14,3 +14,13 @@ Libararies
 
 prediction model: HistGradient
 
+sklearn
+1-metrics
+2-pipeline
+3-preprocessing
+4-tree
+5-linear_model
+6-neighbors
+7-ensemble
+8-compose
+9-Impute
