@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -13,13 +14,11 @@ def load_model():
 
 model = load_model()
 
-st.title("Olist E-Commerce Delivery Time Predictor")
-st.markdown(
-    "Welcome! Use this interactive app to estimate customer delivery times "
-    "based on package dimensions, shipping distance, and order timing.")
+st.title(" Olist E-Commerce Delivery Time Predictor")
+
 st.divider()
 
-st.sidebar.header("Order Parameters")
+st.sidebar.header(" Order Parameters")
 
 def user_input_features():
     n_items = st.sidebar.number_input("Number of Items", min_value=1, max_value=20, value=1)
@@ -40,8 +39,7 @@ def user_input_features():
     order_dow = st.sidebar.selectbox("Day of Week", options=[0, 1, 2, 3, 4, 5, 6], format_func=lambda x: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][x])
     order_month = st.sidebar.slider("Order Month (1-12)", 1, 12, 6)
 
-    data = {
-        "n_items": n_items,
+    data = {"n_items": n_items,
         "n_distinct_products": n_distinct_products,
         "n_sellers": n_sellers,
         "n_distinct_categories": n_distinct_categories,
@@ -53,8 +51,7 @@ def user_input_features():
         "all_same_state": all_same_state,
         "order_hour": order_hour,
         "order_dow": order_dow,
-        "order_month": order_month
-    }
+        "order_month": order_month}
     
     return pd.DataFrame(data, index=[0])
 
@@ -64,7 +61,11 @@ st.subheader(" Selected Order Features")
 st.dataframe(input_df)
 
 if st.button(" Predict Delivery Time", type="primary"):
-    prediction_hours = model.predict(input_df)[0]
-    prediction_days = prediction_hours / 24
+    prediction_hours = int(round(model.predict(input_df)[0]))
+    prediction_days = int(round(prediction_hours / 24))
     
-    st.success(f"### Estimated Delivery Time: **{prediction_hours:.1f} hours** (~**{prediction_days:.1f} days**) ")
+    estimated_date = datetime.now() + timedelta(hours=prediction_hours)
+    formatted_date = estimated_date.strftime("%B %d, %Y")
+    
+    st.success(f"### Estimated Delivery Time: **{prediction_hours} hours** (~**{prediction_days} days**) \n\n"
+        f" **Estimated Delivery Date:** {formatted_date}")
